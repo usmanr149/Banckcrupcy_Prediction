@@ -57,11 +57,6 @@ def build_model(X_train, y_train, feature_constructor, k, C):
     # fit the model and return the result
     pipeline.fit(X_train, y_train)
 
-    predictions = pipeline.predict_proba(X_train)
-    predictions_1 = [row[1] for row in predictions]
-    
-    print(f'AUC on the training data: {roc_auc_score(y_train, predictions_1)}')
-
     return pipeline
 
 

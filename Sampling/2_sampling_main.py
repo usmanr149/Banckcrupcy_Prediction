@@ -8,7 +8,7 @@ from sampling_library import *
 data_location = 'DSI_output/'
 
 # model to use
-model = 'transformers' # 'bow' or 'transformers'
+model = 'bow' # 'bow' or 'transformers'
 
 # history of documents used to make a prediction
 # (1 or 3) in the paper

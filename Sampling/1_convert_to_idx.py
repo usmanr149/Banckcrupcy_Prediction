@@ -8,7 +8,7 @@ import time
 # ______________________________________________________________________________________________________________________
 # location of the files created by the DSI code
 data_location = 'DSI_output/'
-model = 'bow' # 'bow' or 'transformers'
+model = 'transformers' # 'bow' or 'transformers'
 
 # SCRIPT
 # ______________________________________________________________________________________________________________________

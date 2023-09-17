@@ -11,7 +11,7 @@ LOCATION_OUTPUT = "DSI_output/"
 LOCATION_LOPUCKI = "data/Florida-UCLA-LoPucki Bankruptcy Research Database 1-12-2023/Florida-UCLA-LoPucki Bankruptcy Research Database 1-12-2023.csv"
 LOCATION_EDGAR = "location_edgar"
 # GENERAL
-begin_year = 2014 #in the paper data from 2000 untill 2020 was used
+begin_year = 2000 #in the paper data from 2000 untill 2020 was used
 end_year = 2020
 # deal with a subsample of the data (to speed things up and try out the code)
 sample = True

@@ -26,8 +26,8 @@ C_range = [1e-05, 1e-03, 0.05, 0.1, 0.15, 0.5, 1, 10, 100, 1000, 5000]
 # the range of n_grams to use (e.g. (1,2) means uni- and bi-grams)
 n_grams = (1, 2)
 # the feature extraction method, CountVectorizer creates binary features, TfidfVectorizer creates TFIDF features.
-feature = CountVectorizer(binary=True, ngram_range=n_grams)
-# feature = TfidfVectorizer(ngram_range=n_grams)
+# feature = CountVectorizer(binary=True, ngram_range=n_grams)
+feature = TfidfVectorizer(ngram_range=n_grams)
 
 
 # SCRIPT
@@ -77,6 +77,9 @@ print('RESAMPLING')
 # balance out the class proportions if specified
 if balance:
     train = balance_train(train, balance_prop)
+
+# shuffle after balance
+train = train.sample(frac = 1)
 
 print('SWAPPING DOC IDS FOR CORRESPONDING TEXT')
 
@@ -156,15 +159,23 @@ for k in k_range:
 
         # make predictions and store the result
         preds_0, preds_1 = evaluate(X_hol1, model)
-        preds = pd.DataFrame({'preds_0': preds_0, 'preds_1': preds_1, 'cik': cik_1})
+        preds = pd.DataFrame({'preds_0': preds_0, 'preds_1': preds_1, 'cik': cik_1, 'label': y_hol1})
         preds.to_csv(dir + 'predictions_holdout_set_1.csv')
+
+        auc_1 = roc_auc_score(y_hol1, preds_1)
+        print(f'AUC score for 2019: {auc_1}')
 
         # repeat for the second holdout set
         preds_0, preds_2 = evaluate(X_hol2, model)
-        preds = pd.DataFrame({'preds_0': preds_0, 'preds_1': preds_2, 'cik': cik_2})
+        preds = pd.DataFrame({'preds_0': preds_0, 'preds_1': preds_2, 'cik': cik_2, 'label': y_hol2})
         preds.to_csv(dir + 'predictions_holdout_set_2.csv')
 
+        auc_2 = roc_auc_score(y_hol2, preds_2)
+        print(f'AUC score for 2020: {auc_2}')
+        
         # create and store feature weights
         feature_imp = get_feature_weights(model)
         feature_imp.to_csv(dir + 'feature_imp.csv')
+
+        print('=' * 30)
 
